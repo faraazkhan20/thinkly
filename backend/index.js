@@ -10,7 +10,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api/test", (req, res) => {
-  res.send("apple!");
+  res.send("mango!");
 });
 
 app.listen(PORT, () => {
