@@ -1,12 +1,11 @@
+import { Routes, Route } from "react-router-dom";
 import PostList from "./components/PostList";
 
 function App() {
   return (
-    <div>
-      <h1>📝 Thinkly Blog</h1>
-      <p>Welcome to the minimalist blog app!</p>
-      <PostList />
-    </div>
+    <Routes>
+      <Route path="/" element={<PostList />} />
+    </Routes>
   );
 }
 
