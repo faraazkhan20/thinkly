@@ -53,4 +53,17 @@ const updatePost = async (req, res) => {
   }
 };
 
-module.exports = { getAllPosts, getPostById, createPost, updatePost };
+const deletePost = async (req, res) => {
+  try {
+    await poolConnect;
+    const { id } = req.params;
+
+    await pool.request().input("id", sql.Int, id).query("DELETE FROM Posts WHERE id = @id");
+
+    res.send("Post deleted");
+  } catch (err) {
+    res.status(500).send("DB error");
+  }
+};
+
+module.exports = { getAllPosts, getPostById, createPost, updatePost, deletePost };
