@@ -39,4 +39,18 @@ const createPost = async (req, res) => {
   }
 };
 
-module.exports = { getAllPosts, getPostById, createPost };
+const updatePost = async (req, res) => {
+  try {
+    await poolConnect;
+    const { id } = req.params;
+    const { title, content } = req.body;
+
+    await pool.request().input("id", sql.Int, id).input("title", sql.NVarChar(255), title).input("content", sql.Text, content).query("UPDATE Posts SET title = @title, content = @content WHERE id = @id");
+
+    res.send("Post updated");
+  } catch (err) {
+    res.status(500).send("DB error");
+  }
+};
+
+module.exports = { getAllPosts, getPostById, createPost, updatePost };
