@@ -26,4 +26,17 @@ const getPostById = async (req, res) => {
   }
 };
 
-module.exports = { getAllPosts, getPostById };
+const createPost = async (req, res) => {
+  try {
+    await poolConnect;
+    const { title, content } = req.body;
+
+    await pool.request().input("title", sql.NVarChar(255), title).input("content", sql.Text, content).query("INSERT INTO Posts (title, content) VALUES (@title, @content)");
+
+    res.status(201).send("Post created");
+  } catch (err) {
+    res.status(500).send("DB error");
+  }
+};
+
+module.exports = { getAllPosts, getPostById, createPost };
